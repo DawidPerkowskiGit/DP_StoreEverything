@@ -1,54 +1,26 @@
-## 1.  Projekt aplikacji webowej Store Everything, której zadaniem jest przechowywanie informacji/notatek/ogłoszeń. ##
+# Content of project
+* [About application](#about-application)
+* [Technologies](#technologies)
+* [More detailed information about modules](#more-detailed-information-about-modules)
+* [Application view](#application-view)
 
-## 2.  Podstawowe funkcjonalności aplikacji : ##
+## About application
+Repository of web application which lets users to, create and share with others bits of information. User will also be reminded about each information at specified date. Hosted on Render using Docker. 
 
-    
-**Użytkownicy**
 
-- możliwość rejestracji oraz zalogowania użytkowników
+## Technologies
+Java 8, Maven, Spring, Spring Boot, Spring Security, MySQL, JPA, REST API, JUnit, Render, Docker
 
-- podział na trzy grupy : z ograniczonym dostępem, z pełnym dostępem, administrator
- 
-- użytkownik z ograniczonym dostępem ma możliwość przeglądania udostępnionych mu informacji
 
-- użytkownik z pełnym dostępem może dodawać, usuwać, edytować, udostępniać innym użytkownikom informacje oraz dodawać kategorie
+## More detailed information about modules
 
-- użytkownik z pełnym dostępem może przeglądać tylko swoje infromacje oraz otrzymane od innych
+You can share these notes with other users, so the can view them at any time and also be reminded. There are two types of users:
+- Limited access user an only view information bits
+- Full access user can create and share information
 
-- administrator zarządza użytkownikami oraz informacjami
 
-- używając REST API można uzyskać listę użytkowników
+## Application view
 
-**Informacje**
+![IMAGE_DESCRIPTION](https://i.imgur.com/kEIcWvO.png)
 
--  opisane tytułem, treścią, kategorią, datą dodania i datą przypomnienia
-
--  kategoria jest wybierana z listy, możliwość dodania nowej
-
--  jeżeli dzisiaj przypada data przypomnienia co najmniej jednej informacji, to po zalogowaniu pokaże się ekran z tymi informacjami. Tyczy się to informacji autorskich oraz udostępnionych przez innych użytkowników.
-
--  na stronie głównej pokazane są trzy ostatnio dodane informacje oraz trzy ostatnio otrzymane(udostępnione) informacje
--  używając REST API można uzyskać listę informacji
-
-## 3.  Zastosowane technologie i narzędzia
-
--  Java - główny język programowania
-
--  Spring Web - framework umożliwiający stworzenie aplikacji webowej
-
--  Spring Boot - framework umożliwiający utworzenie samodzielnej aplikacji
-
--  Spring Security - wydzielenie dostępu do konkretnych zasobów apliakcji w zależności od posiadanych uprawnień
-
--  Junit - framework używany do przeprowadzania testów jednostkowych
-
--  MySQL - wybrana baza danych do przechowywania danych użytkowników i informacji
-
--  MySQL Workbench - zarządzanie bazą danych
-
--  IntelliJ - środowisko do tworzenia aplikacji
-
--  Maven - zarządzanie frameworkami 
-
--  Postman - testowanie działania REST API
-
+![IMAGE_DESCRIPTION](https://i.imgur.com/23w77aj.png)
