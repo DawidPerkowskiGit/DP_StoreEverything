@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>StoreEverything</title>
+    <div th:replace="fragments/head :: head"  th:remove="tag"></div>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand text-white">
+            <i class="fa-solid fa-cubes-stacked"></i>
+            StoreEverything
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav" style="width: 100%; align-items: center; justify-content: center; font-weight: bold">
+            </ul>
+        </div>
+        <a class="btn btn-outline-light my-2 my-sm-0" href="register_form.html" th:href="@{/register}">Rejestracja</a>&nbsp;&nbsp;
+        <a class="btn btn-outline-light my-2 my-sm-0" th:href="@{/login}">Logowanie</a>
+    </nav>
+    <div class="notification">
+        <div th:if="${param.logout}" class="alert alert-success">
+            Zostałeś wylogowany.
+        </div>
+    </div>
+    <main role="main" class="container">
+        <div class="my-3 p-3 bg-white rounded box-shadow" style="min-height: 665px;">
+            <div class="mb-5" style="text-align: center;">
+                <h2 class="mb-0 lh-100">StoreEverything</h2>
+                <small class="lh-100">Miejce do zapisywania i dzielenia się istotnymi informacjami.</small>
+            </div>
+            <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-secondary rounded box-shadow">
+                <i class="fa-solid fa-cubes-stacked" style="font-size: 20px; color: white; margin-right: 5px;"></i>
+                <div class="lh-100">
+                    <h5 class="mb-0 lh-100 text-white">  Projekt aplikacji webowej Store Everything, której zadaniem jest przechowywanie informacji/notatek/ogłoszeń.</h5>
+                </div>
+            </div>
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                <h6 class="border-bottom border-gray pb-2 mb-0"> W celu sprawdzenia funkcjonalności można zalogować się na konto:</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Login: test</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Hasło: test</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Limit zarejestrowanych użytkowników: 20</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Limit dodanych informacji: 100</h6>
+            </div>
+            <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-secondary rounded box-shadow">
+                <i class="fa-solid fa-cubes-stacked" style="font-size: 20px; color: white; margin-right: 5px;"></i>
+                <div class="lh-100">
+                    <h5 class="mb-0 lh-100 text-white">  Podstawowe funkcjonalności aplikacji</h5>
+                </div>
+            </div>
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                <strong class="text-gray-dark">Użytkownicy</strong>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> możliwość rejestracji oraz zalogowania użytkowników</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> podział na trzy grupy: z ograniczonym dostępem, z pełnym dostępem, administrator</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> użytkownik z ograniczonym dostępem ma możliwość przeglądania udostępnionych mu informacji</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> użytkownik z pełnym dostępem może dodawać, usuwać, edytować, udostępniać innym użytkownikom informacje oraz dodawać kategorie</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> użytkownik z pełnym dostępem może przeglądać tylko swoje infromacje oraz otrzymane od innych</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> administrator zarządza użytkownikami oraz informacjami</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> używając REST API można uzyskać listę użytkowników</h6>
+            </div>
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                <strong class="text-gray-dark">Informacje</strong>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> opisane tytułem, treścią, kategorią, datą dodania i datą przypomnienia</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> kategoria jest wybierana z listy, możliwość dodania nowej</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> jeżeli dzisiaj przypada data przypomnienia co najmniej jednej informacji, to po zalogowaniu pokaże się ekran z tymi informacjami. Tyczy się to informacji autorskich oraz udostępnionych przez innych użytkowników</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> na stronie głównej pokazane są trzy ostatnio dodane informacje oraz trzy ostatnio otrzymane (udostępnione) informacje</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> używając REST API można uzyskać listę informacji utworzonych oraz otrzymanych</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> /api/getReceived | /api/getPosted</h6>
+
+            </div>
+            <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-secondary rounded box-shadow">
+                <i class="fa-solid fa-cubes-stacked" style="font-size: 20px; color: white; margin-right: 5px;"></i>
+                <div class="lh-100">
+                    <h5 class="mb-0 lh-100 text-white"> Zastosowane technologie i narzędzia</h5>
+                </div>
+            </div>
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Java 8 - główny język programowania</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Maven - zbudowanie oraz publikacja aplikacji</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Spring Web- framework umożliwiający stworzenie aplikacji webowej</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Spring Boot-framework umożliwiający utworzenie samodzielnej aplikacji</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Spring Security-wydzielenie dostępu do konkretnych zasobów aplikacji w zależności od posiadanych uprawnień</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Junit - framework używany do przeprowadzania testów jednostkowych</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> MySQL - wybrana baza danych do przechowywania danych użytkowników i informacji</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> MySQL Workbench-zarządzanie bazą danych</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> IntelliJ - środowisko do tworzenia aplikacji</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Postman - testowanie działania REST API</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> GitLab - narzędzia kontroli wersji</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0"> Heroku - platforma, na której udostępniona jest aplikacja</h6>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="text-muted" th:replace="fragments/footer :: footer"></div>
+        </div>
+    </footer>
+</body>
+</html>

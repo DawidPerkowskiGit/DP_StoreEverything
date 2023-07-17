@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomyślnie edytowano informację</title>
+    <div th:replace="fragments/head :: head"  th:remove="tag"></div>
+</head>
+<body>
+    <nav th:replace="fragments/header :: header"></nav>
+    <div class="container text-center">
+        <div>
+            <h3>Pomyślnie edytowano informację</h3>
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="table align-items-center">
+                    <td>
+                        <a th:href="@{/informations/my_list}" class="btn btn-info ml-2">Przeglądaj listę swoich informacji</a>
+                    </td>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

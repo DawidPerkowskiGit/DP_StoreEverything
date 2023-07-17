@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="header">
+        <a class="navbar-brand" th:href="@{/homepage}">
+            <i class="fa-solid fa-cubes-stacked"></i>
+            StoreEverything
+        </a>
+<!--        <form class="form-inline" >-->
+<!--            <input class="form-control mr-sm-2" type="search" placeholder="Wyszukaj..." aria-label="Search">-->
+<!--            <button class="my-button" type="submit"><i class="fa-solid fa-magnifying-glass a-header text-white"></i></button>-->
+<!--        </form>-->
+
+        <div class="collapse navbar-collapse" id="navbarNav" >
+            <ul class="navbar-nav" style="width: 90%; align-items: center; justify-content: center; font-weight: bold">
+                <li class="nav-item">
+                    <a href="/informations/my_list.html" th:href="@{/informations/my_list}">
+                        <i class="btn btn-outline-light my-2 my-sm-0">Lista moich informacji</i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/limited/received.html" th:href="@{/limited/received}">
+                        <i class="btn btn-outline-light my-2 my-sm-0">Otrzymane informacje</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <form class="form-inline" th:action="@{/logout}" method="post" style="font-size:18px; color: white" >
+            Witaj,&nbsp;<b>[[${#request.userPrincipal.principal.fullName}]]</b>&nbsp;
+<!--            <a href="/admin/dashboard.html"  th:href="@{/user/profile}">-->
+<!--                <i class="fa-solid fa-user a-header"></i>-->
+<!--            </a>-->
+            <a sec:authorize="hasAnyAuthority('ADMIN')" href="/admin/dashboard.html"  th:href="@{/admin/dashboard}">
+                <i class="fa-solid fa-user-secret a-header"></i>
+            </a>
+<!--            <a href="#">-->
+<!--                <i class="fa-solid fa-gear a-header"></i>-->
+<!--            </a>-->
+            <button class="my-button" type="submit">
+                <i class="fa-solid fa-right-from-bracket a-header"></i>
+            </button>
+        </form>
+    </nav>
+</body>
+</html>

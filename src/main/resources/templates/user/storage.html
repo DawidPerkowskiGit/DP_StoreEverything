@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schowek - StoreEverything</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}" />
+    <script th:src="@{../js/a73936c383.js}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:replace="fragments/header :: header"></nav>
+    <main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-secondary rounded box-shadow">
+            <i class="fa-solid fa-box-archive" style="font-size: 20px; color: white; margin-right: 5px;"></i>
+            <div class="lh-100">
+                <h5 class="mb-0 lh-100 text-white">Schowek</h5>
+            </div>
+        </div>
+        <div class="my-3 p-3 bg-white rounded box-shadow" style="min-height: 665px">
+
+
+
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="text-muted" th:replace="fragments/footer :: footer"></div>
+        </div>
+    </footer>
+</body>
+</html>

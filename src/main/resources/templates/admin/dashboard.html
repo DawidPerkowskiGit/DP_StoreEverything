@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - StoreEverything</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}" />
+    <script th:src="@{../js/a73936c383.js}" crossorigin="anonymous"></script>
+    <style>
+        table {
+            display: block;
+            width: 100%;
+            height : 250px;
+            overflow-y : scroll;
+        }
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(230,230,230,1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color:#fff;
+            -webkit-box-shadow: inset 0 0 6px rgba(30,30,30,0.3);
+        }
+
+        .row {
+            margin-left: -145px;
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                width: 1600px;
+            }
+
+            .row {
+                width: 1400px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/header :: header"></nav>
+<main role="main" class="container-fluid">
+    <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-secondary rounded box-shadow">
+        <i class="fa-solid fa-user-secret" style="font-size: 20px; color: white; margin-right: 5px;"></i>
+        <div class="lh-100">
+            <h5 class="mb-0 lh-100 text-white">Dashboard</h5>
+        </div>
+    </div>
+    <div class="my- p-3 bg-white rounded box-shadow" style="min-height: 665px">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-4" style="border: solid #eee 2px; border-radius: 5px; width: 100%;" >
+                    <h4 class="p-3">Kategorie <a th:href="@{/admin/categories/add}" class="btn btn-success ml-2 float-right">Dodaj kategorię</a></h4>
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th style="width: 100%;">Nazwa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr scope="row" th:each="category: ${listCategories}">
+                                <td th:text="${category.getId()}"></td>
+                                <td th:text="${category.getCategoryName()}"></td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4"  style="border: solid #eee 2px; border-radius: 5px">
+                    <h4 class="p-3">Role <a th:href="@{/admin/roles/add_role}" class="btn btn-success ml-2 float-right">Dodaj rolę</a></h4>
+                    <table class="table table-striped table-bordered" style="">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th >ID</th>
+                                <th style="width: 100%;">Nazwa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr scope="row" th:each="role: ${listRoles}">
+                                <td th:text="${role.getId()}"></td>
+                                <td th:text="${role.getName()}"></td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4"  style="border: solid #eee 2px; border-radius: 5px">
+                    <h4 class="p-3">Statystyki</h4>
+                    <table style="overflow: hidden; text-align: left;">
+                        <tr>
+                            <td>Zarejestrowani użytkownicy: X</td>
+                        </tr>
+                        <tr>
+                            <td>Zapisane informacje: X</td>
+                        </tr>
+                        <tr>
+                            <td>Udostępnione informacje: X</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12"  style="border: solid #eee 2px; border-radius: 5px">
+                    <h4 class="p-3">Użytkownicy</h4>
+                    <table class="table table-striped table-bordered" style="height: 550px;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Login</th>
+                                <th style="width: 40%;">E-mail</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th style="width: 30%;">Urodziny</th>
+                                <th style="width: 40%;">Data rejestracji</th>
+                                <th>Aktywny</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user: ${listUsers}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.login}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.birthday}"></td>
+                                <td th:text="${#dates.format(user.regDate, 'yyy-MM-dd, HH:mm')}"></td>
+                                <td th:if="${user.enabled == 1}">Tak</td>
+                                <td th:unless="${user.enabled == 1}">Nie</td>
+                                <td><a href="#">Wyłącz</a> </td>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Login</th>
+                                <th>E-mail</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>Urodziny</th>
+                                <th>Data rejestracji</th>
+                                <th>Aktywny</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12"  style="border: solid #eee 2px; border-radius: 5px">
+                    <h4 class="p-3">Informacje</h4>
+                    <table class="table table-striped table-bordered" style="height: 550px;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th style="width: 10%;">Data dodania</th>
+                                <th>Dodano przez</th>
+                                <th>Kategoria</th>
+                                <th style="width: 50%;">Zawartość</th>
+                                <th style="width: 30%;">Tytuł</th>
+                                <th style="width: 10%;">Przypomnienie</th>
+                                <th style="width: 50%;">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="information: ${listInformations}">
+                                <td th:text="${information.getInformationId()}"></td>
+                                <td th:text="${information.getFormatedDate(information.getAddDate())}"></td>
+                                <td th:text="${information.user.getFullName()}"></td>
+                                <td th:text="${information.category.getCategoryName()}"></td>
+                                <td th:text="${information.getContent()}"></td>
+                                <td th:text="${information.getTitle()}"></td>
+                                <td th:text="${information.getFormatedDate(information.getRememberDate())}"></td>
+                                <td><a th:href="|http://${information.getLink()}|" th:text="${information.getLink()}" /></td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Data dodania</th>
+                                <th>Dodano przez</th>
+                                <th>Kategoria</th>
+                                <th>Zawartość</th>
+                                <th>Tytuł</th>
+                                <th>Data przypomnienia</th>
+                                <th>Link</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="text-muted" th:replace="fragments/footer :: footer"></div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista informacji</title>
+    <div th:replace="fragments/head :: head"  th:remove="tag"></div>
+</head>
+<body>
+<nav th:replace="fragments/header :: header"></nav>
+<div class="container text-center">
+    <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-secondary rounded box-shadow">
+        <i class="fa-solid fa-boxes-packing" style="font-size: 20px; color: white; margin-right: 5px;"></i>
+        <div class="lh-100">
+            <h5 class="mb-0 lh-100 text-white">Lista informacji</h5>
+        </div>
+    </div>
+    <div class="my-3 p-3 bg-white rounded box-shadow" style="min-height: 665px">
+        <div>
+            <a th:href="@{/informations/add}" class="btn btn-success ml-2">Dodaj informację</a>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead class=""thead-dark>
+            <tr>
+                <!--                <th>ID</th>-->
+                <th>Dodano przez</th>
+                <th>Tytuł</th>
+                <!--                <th>Treść</th>-->
+                <th>Kategoria</th>
+                <th>Dodano dnia</th>
+                <!--                <th>Przypomnienie dnia</th>-->
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="information: ${listInformations}">
+                <!--                <td th:text="${information.getInformationId()}"></td>-->
+                <td th:text="${information.user.getFullName()}"></td>
+                <td th:text="${information.getTitle()}"></td>
+                <!--                <td th:text="${information.getContent()}"></td>-->
+                <td th:text="${information.category.getCategoryName()}"></td>
+                <td th:text="${information.getFormatedDate(information.getAddDate())}"></td>
+                <!--                <td th:text="${information.getFormatedDate(information.getRememberDate())}"></td>-->
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
