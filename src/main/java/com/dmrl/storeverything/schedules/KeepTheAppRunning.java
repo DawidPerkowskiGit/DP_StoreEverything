@@ -1,6 +1,7 @@
 package com.dmrl.storeverything.schedules;
 
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -9,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
-@Service
+@Component
 public class KeepTheAppRunning {
     @Scheduled(fixedRate = 600000, initialDelay = 600000)
     public void keepTheAppRunning(){
