@@ -9,7 +9,7 @@
 Migrated to GitHub for Render deployment. Source repository on GitLab (has complete commit history):
 https://gitlab.com/it543/store-everything
 
-Repository of web application which lets users to, create and share with others bits of information. User will also be reminded about each information at specified date. Hosted on Render using Docker. 
+Repository of web application which lets users to, create and share with others bits of information. User will also be reminded about each information at specified date. Hosted on Render using Docker. Hosted on Render's free plan which results in app's instance spun down after 15 minutes of inactivity.
 
 
 ## Technologies
