@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
-/*@Component
+@Component
 public class KeepTheAppRunning {
     @Scheduled(fixedRate = 600000, initialDelay = 600000)
     public void keepTheAppRunning(){
@@ -30,4 +30,4 @@ public class KeepTheAppRunning {
         }
         System.out.println("Successfully kept the app from un-allocating resources. Time: " + localDateTime.toString());
     }
-}*/
+}
