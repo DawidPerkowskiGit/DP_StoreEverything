@@ -19,7 +19,7 @@ public class KeepTheAppRunning {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://dp-storeeverything.onrender.com/"))
+                    .uri(URI.create("https://dp-storeeverything-zri6.onrender.com/"))
                     .build();
 
             HttpResponse<String> response = client.send(request,
