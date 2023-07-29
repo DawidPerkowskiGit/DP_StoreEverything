@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Component
 public class KeepTheAppRunning {
-    @Scheduled(fixedRate = 600000, initialDelay = 600000)
+    @Scheduled(fixedRate = 100000, initialDelay = 100000)
     public void keepTheAppRunning(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
