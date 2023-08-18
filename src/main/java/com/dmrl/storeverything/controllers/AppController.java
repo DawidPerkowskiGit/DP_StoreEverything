@@ -51,20 +51,22 @@ public class AppController {
         return "index";
     }
 
-/*    @GetMapping("/afterLoggingIn")
-    public String afterLoggingIn() {
-
-        System.out.println("stuff");
-
-        return "homepage";
-
-    }*/
-
+    /**
+     * User login endpoint
+     *
+     * @return Login view
+     */
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
+    /**
+     * User registration endpoint
+     *
+     * @param model Registration data model
+     * @return Register from view
+     */
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
 
@@ -77,6 +79,12 @@ public class AppController {
         return "register_form";
     }
 
+    /**
+     * Processes registration data, if data is valid adds new user to the database
+     *
+     * @param user User entity data
+     * @return Registration successful view
+     */
     @PostMapping("/process_register")
     public String processRegistration(User user) {
 
@@ -96,6 +104,12 @@ public class AppController {
         return "register_success";
     }
 
+    /**
+     * Admin dashboard view
+     *
+     * @param model Users and their roles, Information and categoties
+     * @return admin dashboard view
+     */
     @GetMapping("/admin/dashboard")
     public String listCategories(Model model) {
 
@@ -114,12 +128,17 @@ public class AppController {
         return "admin/dashboard";
     }
 
-
+    /**
+     * Homepage view endpoint
+     *
+     * @param model User information, recently posted and shared information
+     * @return Homepage view
+     */
     @GetMapping("/homepage")
     public String showHomePage(Model model) {
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         User currUser = (User) session.getAttribute("currUser");
         if (currUser == null) {
@@ -140,39 +159,41 @@ public class AppController {
         if (recentlyReceivedInfos.size() > 0) {
             model.addAttribute("recentlyReceivedInfos", recentlyReceivedInfos);
         }
-
-
-        //String queryRecentlyReceivedInfo
-
         return "home";
     }
 
-    @RequestMapping("/user/mystorage")
-    public String showUserStorage() {
-        return "user/storage.html";
-    }
-
-    @RequestMapping("/user/sharedstorage")
-    public String showSharedStorage() {
-        return "user/sharedstorage.html";
-    }
-
+    /**
+     * User profile view endpoint
+     *
+     * @return User profile view
+     */
     @RequestMapping("/user/profile")
     public String showUserProfile() {
         return "user/profile.html";
     }
 
+    /**
+     * Admin dashboard view endpoint
+     *
+     * @return Admin dashboard view
+     */
     @RequestMapping("/admin/dashboard")
     public String showAdminDashboard() {
         return "admin/dashboard.html";
     }
 
+    /**
+     * After logging in view endpoint
+     *
+     * @param model Recently posted/received information
+     * @return After logging in view
+     */
     @GetMapping("/afterLoggingIn")
     public String showCurrentDayInfo(Model model) {
 
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         User currUser = repo.findByLogin(authenticationFacade.getAuthentication().getName());
 

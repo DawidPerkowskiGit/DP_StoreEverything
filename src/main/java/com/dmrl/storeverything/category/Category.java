@@ -6,6 +6,9 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Entity model of Categories
+ */
 @Entity
 @Table(name = "categories")
 public class Category {
