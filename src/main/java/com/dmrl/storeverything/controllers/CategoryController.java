@@ -22,21 +22,11 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
     /**
-     * List all categories
-     */
-    /*@GetMapping("/admin/dashboard")
-    public String listCategories(Model model) {
-
-        List<Category> listCategories = categoryRepository.findAll();
-        model.addAttribute("listCategories", listCategories);
-
-        return "admin/dashboard";
-    }*/
-
-    /**
-     * GET - add new category (Admin)
+     * Admin panel functionality which enables adding new category
+     *
+     * @param model Categories model
+     * @return Category add view
      */
     @GetMapping("/admin/categories/add")
     public String showAddCategoryForm(Model model) {
@@ -47,7 +37,10 @@ public class CategoryController {
 
 
     /**
-     * POST - add new category (Admin)
+     * Saves category to the database
+     *
+     * @param category Category to add
+     * @return Added category view
      */
     @PostMapping("/admin/categories/add")
     public String processAddCategory(Category category) {
@@ -57,8 +50,12 @@ public class CategoryController {
         return "admin/categories/add_success";
     }
 
+
     /**
-     * GET - add new category (Full-User)
+     * Category add endpoint available to user
+     *
+     * @param model Category model
+     * @return Category add view
      */
     @GetMapping("/informations/category_add")
     public String showAddCategoryFormUser(Model model) {
@@ -67,9 +64,11 @@ public class CategoryController {
         return "informations/category_add";
     }
 
-
     /**
-     * POST - add new category (Full-User)
+     * Saves category to the database
+     *
+     * @param category Category to be added
+     * @return Category added view
      */
     @PostMapping("/informations/category_add")
     public String processAddCategoryUser(Category category) {
