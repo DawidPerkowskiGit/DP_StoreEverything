@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Controller for handling HTTP errors
+ */
 @Controller
 public class CustomErrorController  implements ErrorController {
 

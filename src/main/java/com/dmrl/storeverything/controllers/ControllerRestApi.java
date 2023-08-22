@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Controller for REST API
+ */
 @RestController
 @RequestMapping("")
 public class ControllerRestApi {

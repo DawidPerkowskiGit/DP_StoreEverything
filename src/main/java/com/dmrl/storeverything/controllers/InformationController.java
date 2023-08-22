@@ -1,6 +1,6 @@
 package com.dmrl.storeverything.controllers;
 
-import com.dmrl.storeverything.TempStringClass;
+import com.dmrl.storeverything.DataPickerStringConverter;
 import com.dmrl.storeverything.category.Category;
 import com.dmrl.storeverything.category.CategoryRepository;
 import com.dmrl.storeverything.information.Information;
@@ -29,9 +29,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Informations controller
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Controller for handling all the Information entity requests
  */
 
 @Controller
@@ -60,7 +58,8 @@ public class InformationController {
 
 
     /**
-     * Return currently logged-in user login
+     * Return currently logged in user data
+     * @return Currently logged-in user login
      */
     public String currentUserNameSimple() {
         Authentication authentication = authenticationFacade.getAuthentication();
@@ -68,14 +67,13 @@ public class InformationController {
     }
 
     /**
-     * Create a view with all Informations
+     * Create a view with list of Information
+     * @param model Information model
+     * @return View displaying list of all Information
      */
 
     @GetMapping("/informations/list")
     public String listInformations(Model model) {
-
-        /*List<Information> listInformations = informationRepository.findAll();
-        model.addAttribute("listInformations", listInformations);*/
 
         List<Category> listCategories = categoryRepository.findAll();
         model.addAttribute("listCategories", listCategories);
@@ -84,7 +82,9 @@ public class InformationController {
     }
 
     /**
-     * GET - add new Information
+     * Accessing this endpoint provides view where user can add new information
+     * @param model Information model
+     * @return Send POST request at /informations/add endpoint to save new user into the database
      */
 
     @GetMapping("/informations/add")
@@ -97,12 +97,6 @@ public class InformationController {
         String query = ("SELECT c, COUNT(i.category.id) as ccount FROM Category c LEFT OUTER JOIN Information i on i.category = c GROUP BY c ORDER BY ccount DESC");
         List<Object[]> result = em.createQuery(query).getResultList();
         List<Category> listCategories = new ArrayList<>();
-
-/*      SELECT c.id as ids, COUNT(i2.category_id) as ccount
-        FROM categories c
-        lEFT OUTER JOIN informations i2 on i2.category_id = c.id
-        GROUP BY c.id
-        ORDER BY ccount DESC*/
 
         Boolean categoryObj = true;
 
@@ -123,19 +117,23 @@ public class InformationController {
         model.addAttribute("information", information);
 
         String stringDate = "";
-        TempStringClass tempStringClass = new TempStringClass(stringDate);
-        model.addAttribute("tempStringClass", tempStringClass);
+        DataPickerStringConverter dataPickerStringConverter = new DataPickerStringConverter(stringDate);
+        model.addAttribute("tempStringClass", dataPickerStringConverter);
 
 
         return "informations/add";
     }
 
     /**
-     * POST - add new Information
+     * Save information to the database
+     * @param dataPickerStringConverter convert date to String format
+     * @param information Information entity object
+     * @return Information added successfully view.
+     * @throws ParseException Date to String parsing error
      */
 
     @PostMapping("/informations/add")
-    public String processAddInformation(TempStringClass tempStringClass,
+    public String processAddInformation(DataPickerStringConverter dataPickerStringConverter,
                                         Information information) throws ParseException {
 
         if (informationRepository.findAll().size() > informationsCount) {
@@ -146,7 +144,7 @@ public class InformationController {
         User currUser = repo.findByLogin(userName);
         information.setUser(currUser);
 
-        information.setRememberDate(information.formatStringToDate(tempStringClass.getTempString()));
+        information.setRememberDate(information.formatStringToDate(dataPickerStringConverter.getTempString()));
 
         informationRepository.save(information);
 
@@ -217,8 +215,8 @@ public class InformationController {
         session.setAttribute("editId", editId);
 
         String stringDate = "";
-        TempStringClass tempStringClass = new TempStringClass(stringDate);
-        model.addAttribute("tempStringClass", tempStringClass);
+        DataPickerStringConverter dataPickerStringConverter = new DataPickerStringConverter(stringDate);
+        model.addAttribute("tempStringClass", dataPickerStringConverter);
 
         List<Category> listCategories = categoryRepository.findAll();
         model.addAttribute("listCategories", listCategories);
@@ -230,7 +228,7 @@ public class InformationController {
      * POST - Edit an Information
      */
     @PostMapping("/informations/edit")
-    public String processEditInformation(TempStringClass tempStringClass,
+    public String processEditInformation(DataPickerStringConverter dataPickerStringConverter,
                                          Information information) throws ParseException {
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -240,7 +238,7 @@ public class InformationController {
 
         Information oldInformation = informationRepository.findByInformationId(editId);
 
-        information.setRememberDate(information.formatStringToDate(tempStringClass.getTempString()));
+        information.setRememberDate(information.formatStringToDate(dataPickerStringConverter.getTempString()));
 
         information.setInformationId(oldInformation.getInformationId());
         information.setUser(oldInformation.getUser());

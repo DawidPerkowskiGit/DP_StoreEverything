@@ -1,15 +1,18 @@
 package com.dmrl.storeverything;
 
-public class TempStringClass {
+/**
+ * Workaround class used to convert View Date Picker value to String and other way around
+ */
+public class DataPickerStringConverter {
     private String tempString;
     private Long ID;
 
-    public TempStringClass() {}
+    public DataPickerStringConverter() {}
 
-    public TempStringClass(String input) {
+    public DataPickerStringConverter(String input) {
         this.tempString = input;
     }
-    public TempStringClass(Long input) {
+    public DataPickerStringConverter(Long input) {
         this.ID = input;
     }
 
