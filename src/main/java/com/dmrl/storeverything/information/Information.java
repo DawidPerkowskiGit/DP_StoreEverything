@@ -12,6 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Information entity model
+ */
 @Entity
 @Table(name = "informations")
 public class Information {
@@ -20,7 +23,6 @@ public class Information {
     @Column(nullable = false, name = "information_id")
     private Long informationId;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
     @ManyToOne
     @JoinColumn(name = "add_by_user", referencedColumnName = "id")
     private User user;

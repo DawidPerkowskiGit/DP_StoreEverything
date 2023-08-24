@@ -2,6 +2,9 @@ package com.dmrl.storeverything.user;
 
 import javax.persistence.*;
 
+/**
+ * Role entity
+ */
 @Entity
 @Table(name = "roles")
 public class Role {

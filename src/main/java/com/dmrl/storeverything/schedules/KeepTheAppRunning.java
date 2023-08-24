@@ -10,8 +10,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
+/**
+ * Schedule that keeps the app running on Render
+ */
 @Component
 public class KeepTheAppRunning {
+
+    /**
+     * Perform HTTP call to the app's webpage
+     */
     @Scheduled(fixedRate = 600000, initialDelay = 600000)
     public void keepTheAppRunning(){
         LocalDateTime localDateTime = LocalDateTime.now();

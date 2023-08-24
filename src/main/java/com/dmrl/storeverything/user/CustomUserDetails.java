@@ -1,6 +1,5 @@
 package com.dmrl.storeverything.user;
 
-import com.dmrl.storeverything.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +9,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Service which manages authenticated user's data
+ */
 public class CustomUserDetails implements UserDetails {
 
     private User user;
@@ -18,6 +20,10 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
+    /**
+     * Fetch user's Authorities
+     * @return Collection of User Authorities
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Role> roles = user.getRoles();

@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Information repository
+ */
 public interface InformationRepository extends JpaRepository<Information, Long> {
 
     @Query("SELECT i FROM Information i WHERE i.title = ?1")

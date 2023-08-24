@@ -5,6 +5,9 @@ import com.dmrl.storeverything.user.User;
 
 import javax.persistence.*;
 
+/**
+ * Shared information data entity 
+ */
 @Entity
 @Table(name = "shareInformation")
 public class ShareInformation {
