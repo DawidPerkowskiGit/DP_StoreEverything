@@ -12,8 +12,14 @@ import javax.servlet.http.HttpServletRequest;
  * Controller for handling HTTP errors
  */
 @Controller
-public class CustomErrorController  implements ErrorController {
+public class CustomErrorController implements ErrorController {
 
+    /**
+     * Error endpoint, users will be redirected here by accessing unavailable endpoints
+     *
+     * @param request Http request
+     * @return Error page view
+     */
     @GetMapping("/error")
     public String handleError(HttpServletRequest request) {
         String errorPage = "error"; // default
@@ -41,6 +47,11 @@ public class CustomErrorController  implements ErrorController {
         return errorPage;
     }
 
+    /**
+     * Method which redirects to "/error" path
+     *
+     * @return Error view page
+     */
     public String getErrorPath() {
         return "/error";
     }

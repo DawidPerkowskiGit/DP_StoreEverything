@@ -58,7 +58,8 @@ public class InformationController {
 
 
     /**
-     * Return currently logged in user data
+     * Return currently logged-in user data
+     *
      * @return Currently logged-in user login
      */
     public String currentUserNameSimple() {
@@ -68,6 +69,7 @@ public class InformationController {
 
     /**
      * Create a view with list of Information
+     *
      * @param model Information model
      * @return View displaying list of all Information
      */
@@ -83,6 +85,7 @@ public class InformationController {
 
     /**
      * Accessing this endpoint provides view where user can add new information
+     *
      * @param model Information model
      * @return Send POST request at /informations/add endpoint to save new user into the database
      */
@@ -100,9 +103,8 @@ public class InformationController {
 
         Boolean categoryObj = true;
 
-        for (int i = 0; i < result.size() ; i++) {
-            for (Object singleObj: result.get(i)
-            ) {
+        for (int i = 0; i < result.size(); i++) {
+            for (Object singleObj : result.get(i)) {
                 if (categoryObj) {
                     listCategories.add((Category) singleObj);
                 }
@@ -126,15 +128,15 @@ public class InformationController {
 
     /**
      * Save information to the database
+     *
      * @param dataPickerStringConverter convert date to String format
-     * @param information Information entity object
+     * @param information               Information entity object
      * @return Information added successfully view.
      * @throws ParseException Date to String parsing error
      */
 
     @PostMapping("/informations/add")
-    public String processAddInformation(DataPickerStringConverter dataPickerStringConverter,
-                                        Information information) throws ParseException {
+    public String processAddInformation(DataPickerStringConverter dataPickerStringConverter, Information information) throws ParseException {
 
         if (informationRepository.findAll().size() > informationsCount) {
             return "error/max_infos";
@@ -152,7 +154,10 @@ public class InformationController {
     }
 
     /**
-     * Create view with Informations added by currently logged-in user
+     * List all the Information created by authenticated user
+     *
+     * @param model User and Information data passed to view
+     * @return View that displays Information added by a user
      */
 
     @GetMapping("/informations/my_list")
@@ -162,7 +167,7 @@ public class InformationController {
         verifyIfUserInfoIsInSession();
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         User currUser = (User) session.getAttribute("currUser");
         List<Information> listInformations = informationRepository.returnAuthorsInformations(currUser.getId());
@@ -175,7 +180,10 @@ public class InformationController {
     }
 
     /**
-     * Delete an Information
+     * Delete an information posted by authenticated user
+     *
+     * @param deleteId ID of information to delete
+     * @return Redirect to all information list
      */
 
     @GetMapping("/informations/delete")
@@ -185,12 +193,15 @@ public class InformationController {
     }
 
     /**
-     * Create a view with details of an Information
+     * Displays details of an information
+     *
+     * @param detailsId ID of information to display
+     * @param model     Information data passed to view
+     * @return View which displays details of an information.
      */
 
     @GetMapping("/limited/details")
-    public String informationDetails(@RequestParam Long detailsId,
-                                     Model model) {
+    public String informationDetails(@RequestParam Long detailsId, Model model) {
 
         Information information = informationRepository.getById(detailsId);
         model.addAttribute("information", information);
@@ -198,19 +209,23 @@ public class InformationController {
         return "limited/details";
     }
 
+
     /**
-     * GET - Edit an Information
+     * View that lets creator of an information to edit it
+     *
+     * @param editId Information ID
+     * @param model  Information data passed to the view
+     * @return Information edit view
      */
 
     @GetMapping("/informations/edit")
-    public String informationEdit(@RequestParam Long editId,
-                                  Model model) {
+    public String informationEdit(@RequestParam Long editId, Model model) {
 
         Information information = informationRepository.findByInformationId(editId);
         model.addAttribute("information", information);
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         session.setAttribute("editId", editId);
 
@@ -225,14 +240,18 @@ public class InformationController {
     }
 
     /**
-     * POST - Edit an Information
+     * Saves edited information in the database
+     *
+     * @param dataPickerStringConverter Converts Date Picker date format to string
+     * @param information               Information to edit
+     * @return Information edited successfully view
+     * @throws ParseException Text parsing exception
      */
     @PostMapping("/informations/edit")
-    public String processEditInformation(DataPickerStringConverter dataPickerStringConverter,
-                                         Information information) throws ParseException {
+    public String processEditInformation(DataPickerStringConverter dataPickerStringConverter, Information information) throws ParseException {
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         Long editId = (Long) session.getAttribute("editId");
 
@@ -251,21 +270,23 @@ public class InformationController {
 
 
     /**
-     * Creates a view where user can share Information with another user
+     * Share information to another user
+     *
+     * @param sharedInfoId Information id
+     * @param model        Information model passed to view
+     * @return Redirect to endpoint which saves sharing entry to the database
      */
 
     @GetMapping("/informations/share")
-    public String informationShare(@RequestParam Long sharedInfoId,
-                                   Model model) {
+    public String informationShare(@RequestParam Long sharedInfoId, Model model) {
 
         ShareInformation shareInformation = new ShareInformation();
         shareInformation.setInformation(informationRepository.findByInformationId(sharedInfoId));
         model.addAttribute("shareInformation", shareInformation);
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
         session.setAttribute("sharedInfoId", sharedInfoId);
-
 
 
         String userName = currentUserNameSimple();
@@ -277,11 +298,17 @@ public class InformationController {
         return "informations/share";
     }
 
+    /**
+     * Add sharing entry to the database
+     *
+     * @param shareInformation Sharing information entity entry
+     * @return Redirect to user's list of information
+     */
     @PostMapping("/informations/share")
     public String processInformationShare(ShareInformation shareInformation) {
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
         Long sharedInfoId = (Long) session.getAttribute("sharedInfoId");
 
         shareInformation.setInformation(informationRepository.findByInformationId(sharedInfoId));
@@ -291,13 +318,20 @@ public class InformationController {
         return "redirect:my_list";
     }
 
+    /**
+     * Display information shared by other users
+     *
+     * @param model Information model passed to view
+     * @return View which displays received information
+     */
+
     @GetMapping("/limited/received")
     public String viewReceivedInformations(Model model) {
 
         //verifyIfUserInfoIsInSession();
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         User currUser = (User) session.getAttribute("currUser");
 
@@ -309,10 +343,13 @@ public class InformationController {
 
     }
 
+
     /**
      * Methods checks if currently logged-in user information is stored in application session.
      * If user is not present, adds its data to session and returns true/false depending on if
      * data was present before invoking method.
+     *
+     * @return True of False statement based on user's existence in the database
      */
 
     public Boolean verifyIfUserInfoIsInSession() {
@@ -321,13 +358,13 @@ public class InformationController {
         }
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session= attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
 
         Enumeration<String> sessionAttributes = session.getAttributeNames();
 
         Boolean userInfoFound = false;
 
-        for (; sessionAttributes.hasMoreElements();) {
+        for (; sessionAttributes.hasMoreElements(); ) {
             if (sessionAttributes.nextElement().equals("currUser")) {
                 userInfoFound = true;
                 break;

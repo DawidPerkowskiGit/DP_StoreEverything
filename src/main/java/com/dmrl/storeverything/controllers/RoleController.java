@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Roles controller
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Controller which manages user roles. Needs admin privileges
  */
 
 @Controller
@@ -24,7 +22,10 @@ public class RoleController {
 
 
     /**
-     * GET - add new role
+     * Add new role
+     *
+     * @param model Roles model passed to view
+     * @return Call endpoint which saves role to the database
      */
     @GetMapping("/admin/roles/add_role")
     public String showAddRoleForm(Model model) {
@@ -35,7 +36,10 @@ public class RoleController {
 
 
     /**
-     * POST - add new role
+     * Saves new role to the database
+     *
+     * @param role Role to be saved in the database
+     * @return View which lists all the roles
      */
     @PostMapping("/admin/roles/add_role")
     public String processAddRole(Role role) {

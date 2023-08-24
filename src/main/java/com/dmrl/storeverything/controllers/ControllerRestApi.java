@@ -37,15 +37,14 @@ public class ControllerRestApi {
     private ShareInformationRepository shareInformationRepository;
 
     /**
-     * fetch all Users using REST API
-     * GET
-     * http://localhost:8080/api/getAllUsers
+     * Admin privileges functionality. Fetches all user's data.
+     *
+     * @return List of users data
      */
     @GetMapping("/adminapi/getAllUsers")
     public List<String> getAllUsers() {
         List allUsersStringList = new ArrayList();
-        for (User u: userRepository.findAll()
-             ) {
+        for (User u : userRepository.findAll()) {
             allUsersStringList.add(u.toString());
 
         }
@@ -53,9 +52,10 @@ public class ControllerRestApi {
     }
 
     /**
-     * fetch User by User.ID using REST API
-     * GET
-     * http://localhost:8080/api/getUser/1
+     * Fetches single user's data
+     *
+     * @param UserId ID value of the user
+     * @return User's data
      */
     @GetMapping("/adminapi/getUser/{id}")
     public ResponseEntity<String> getUserById(@PathVariable("id") long UserId) {
@@ -65,15 +65,14 @@ public class ControllerRestApi {
 
 
     /**
-     * fetch all Informations using REST API
-     * GET
-     * http://localhost:8080/api/getAllInformations
+     * Fetches all Information from the database
+     *
+     * @return List of Information
      */
     @GetMapping("/adminapi/getAllInformations")
     public List<String> getAllInformations() {
         List allInformationsStringList = new ArrayList();
-        for (Information info: informationRepository.findAll()
-        ) {
+        for (Information info : informationRepository.findAll()) {
             allInformationsStringList.add(info.toString());
 
         }
@@ -81,9 +80,10 @@ public class ControllerRestApi {
     }
 
     /**
-     * fetch Information by Information.ID using REST API
-     * GET
-     * http://localhost:8080/api/Information/1
+     * Fetches single information data
+     *
+     * @param InforamtionId ID value of an Information
+     * @return Single information
      */
     @GetMapping("/adminapi/getInformation/{id}")
     public ResponseEntity<String> getinformationById(@PathVariable("id") long InforamtionId) {
@@ -93,15 +93,14 @@ public class ControllerRestApi {
 
 
     /**
-     * fetch all Categories using REST API
-     * GET
-     * http://localhost:8080/api/getAllCategories
+     * Fetches all categories
+     *
+     * @return List of categories
      */
     @GetMapping("/adminapi/getAllCategories")
     public List<String> getAllCategories() {
         List allInformationscategoriesStringList = new ArrayList();
-        for (Category category: categoryRepository.findAll()
-        ) {
+        for (Category category : categoryRepository.findAll()) {
             allInformationscategoriesStringList.add(category.toString());
 
         }
@@ -109,9 +108,10 @@ public class ControllerRestApi {
     }
 
     /**
-     * fetch Category by Category.ID using REST API
-     * GET
-     * http://localhost:8080/api/Category/1
+     * Fetches single category
+     *
+     * @param CategoryId Category id value
+     * @return Single category
      */
     @GetMapping("/adminapi/getCategory/{id}")
     public ResponseEntity<String> getCategoryById(@PathVariable("id") long CategoryId) {
@@ -120,31 +120,34 @@ public class ControllerRestApi {
     }
 
 
-
     /**
-     * fetch all Informations using REST API
-     * GET
-     * http://localhost:8080/api/getAllInformations
+     * Fetches information posted by a test user
+     *
+     * @return List of Information of a test user
      */
     @GetMapping("/api/getPosted")
     public List<String> getPostedInformations() {
         List allInformationsStringList = new ArrayList();
         allInformationsStringList.add("Informacje użytkownika testowego");
-        for (Information info: informationRepository.returnAuthorsInformations(26L)
-        ) {
+        for (Information info : informationRepository.returnAuthorsInformations(26L)) {
             allInformationsStringList.add(info.toString());
 
         }
         return allInformationsStringList;
     }
 
+    /**
+     * Fetches Information list received by a test user
+     *
+     * @return List of received information
+     */
+
     @GetMapping("/api/getReceived")
     public List<String> getReceivedInformations() {
         List allInformationsStringList = new ArrayList();
         allInformationsStringList.add("Otrzymane informacje przez użytkownika testowego");
         List<ShareInformation> receivedInfo = shareInformationRepository.findInfosReceivedByUser(26L);
-        for (ShareInformation info: receivedInfo
-        ) {
+        for (ShareInformation info : receivedInfo) {
             allInformationsStringList.add(info.getInformation().toString());
 
         }
